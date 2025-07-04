@@ -1,6 +1,7 @@
 import React, { useState } from 'react';          // ① bring useState into scope
 import { assets } from '../../assets/frontend_assets/assets';
-import './Navbar.css';                             // keep if you still want custom CSS
+import './Navbar.css'; 
+import { Link } from 'react-router-dom';                            // keep if you still want custom CSS
 
 const Navbar = () => {
   const [menu, setMenu] = useState('home');        // initial active tab
@@ -12,30 +13,33 @@ const Navbar = () => {
 
       {/* links */}
       <ul className="navbar-menu">
-        <li
+        <Link to='/'
           className={menu === 'home' ? 'active' : ''}
           onClick={() => setMenu('home')}
         >
           Home
-        </li>
-        <li
+        </Link>
+        <a
+        href='#explore-menu'
           className={menu === 'menu' ? 'active' : ''}
           onClick={() => setMenu('menu')}
         >
           Menu
-        </li>
-        <li
+        </a>
+        <a
+        href='#app-download'
           className={menu === 'mobile-app' ? 'active' : ''}
           onClick={() => setMenu('mobile-app')}
         >
           Mobile‑app
-        </li>
-        <li
+        </a>
+        <a
+        href='#footer'
           className={menu === 'contact-us' ? 'active' : ''}
           onClick={() => setMenu('contact-us')}
         >
           Contact&nbsp;us
-        </li>
+        </a>
       </ul>
 
       {/* right side */}
