@@ -3,7 +3,7 @@ import { assets } from '../../assets/frontend_assets/assets';
 import './Navbar.css'; 
 import { Link } from 'react-router-dom';                            // keep if you still want custom CSS
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState('home');        // initial active tab
 
   return (
@@ -52,7 +52,7 @@ const Navbar = () => {
           
         </div>
 
-        <button>Sign&nbsp;in</button>
+        <button onClick={()=>setShowLogin(true)}>Signin</button>
       </div>
     </div>
   );
