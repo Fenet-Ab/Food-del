@@ -1,15 +1,17 @@
-import React, { useState } from 'react';          // ① bring useState into scope
+import React, { useContext, useState } from 'react';          // ① bring useState into scope
 import { assets } from '../../assets/frontend_assets/assets';
 import './Navbar.css'; 
 import { Link } from 'react-router-dom';                            // keep if you still want custom CSS
+import { StoreContext } from '../../context/StoreContext';
 
 const Navbar = ({ setShowLogin }) => {
-  const [menu, setMenu] = useState('home');        // initial active tab
+  const [menu, setMenu] = useState('home');
+  const{getTotalCartAmount} =useContext(StoreContext)      // initial active tab
 
   return (
     <div className="navbar">
       {/* logo */}
-      <img src={assets.logo} alt="Logo" className="logo" />
+    <Link to='/'> <img src={assets.logo} alt="Logo" className="logo" /></Link> 
 
       {/* links */}
       <ul className="navbar-menu">
@@ -47,8 +49,8 @@ const Navbar = ({ setShowLogin }) => {
         <img src={assets.search_icon} alt="Search" />
 
         <div className="navbar-search-icon">
-          <img src={assets.basket_icon} alt="Basket" />
-          <div  className="dot"></div>
+         <Link to='./cart'><img src={assets.basket_icon} alt="Basket" /></Link> 
+          <div  className={getTotalCartAmount()===0?"":"dot"}></div>
           
         </div>
 

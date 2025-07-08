@@ -1,76 +1,38 @@
 import React, { useState } from 'react'
 import './LoginPopup.css'
 
-const LoginPopup = ({ setShowLogin }) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
+import { assets } from '../../assets/frontend_assets/assets'
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Add your login logic here
-    console.log('Login attempt:', formData)
-  }
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
+const LoginPopup = ({setShowLogin}) => {
+  const [currState,setCurrState]=useState("Login")
   return (
-    <div className='login-popup-overlay' onClick={() => setShowLogin(false)}>
-      <div className='login-popup' onClick={(e) => e.stopPropagation()}>
-        <div className='login-popup-header'>
-          <h2>Login</h2>
-          <button 
-            className='close-btn' 
-            onClick={() => setShowLogin(false)}
-          >
-            ×
-          </button>
+    <div className='login-popup'>
+      <form className='login-popup-container'>
+        <div className='login-popup-title'>
+          <h2>{currState}</h2>
+          <img onClick={()=>setShowLogin(false)} src={assets.cross_icon} alt="cross-icon" />
+
         </div>
-        
-        <form onSubmit={handleSubmit} className='login-form'>
-          <div className='form-group'>
-            <label htmlFor='email'>Email</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              value={formData.email}
-              onChange={handleChange}
-              placeholder='Enter your email'
-              required
-            />
-          </div>
+        <div className='login-popup-inputs'>
+          {currState==="Login"?<></>:<input type="text" placeholder='your name' required />}
           
-          <div className='form-group'>
-            <label htmlFor='password'>Password</label>
-            <input
-              type='password'
-              id='password'
-              name='password'
-              value={formData.password}
-              onChange={handleChange}
-              placeholder='Enter your password'
-              required
-            />
-          </div>
-          
-          <button type='submit' className='login-btn'>
-            Login
-          </button>
-        </form>
-        
-        <div className='login-footer'>
-          <p>Don't have an account? <span className='signup-link'>Sign up</span></p>
+          <input type="email" placeholder='your email' required />
+          <input type="password" placeholder='your password' required />
         </div>
-      </div>
+        <button>{currState==="Sign Up"?"Create account":"Login"}</button>
+        <div className='login-popup-condition'>
+          <input type="checkbox" required />
+          <p>By continuing, I agree to the terms of use $ privacy policy.</p>
+        </div>
+        {currState==="Login"
+        ? <p>Create a new account? <span onClick={()=>setCurrState("Sign Up")}>Click here</span></p>:
+        <p>Already have an account? <span onClick={()=>setCurrState("Login")} >Login here</span></p>
+      }
+       
+      </form>
     </div>
   )
 }
 
 export default LoginPopup
+
